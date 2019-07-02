@@ -11,6 +11,6 @@ FROM bioconductor/release_core2
 MAINTAINER kevin.wang@sydney.edu.au
 
 ADD install.R /home/
-ADD zip_file /home/
+ADD zip_file /home/rstudio
 
 RUN R -f /home/install.R
