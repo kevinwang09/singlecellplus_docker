@@ -6,11 +6,15 @@
 
 FROM bioconductor/release_core2
 
-# FIXME? in release, default CRAN mirror is set to rstudio....should it be fhcrc?
-
 MAINTAINER kevin.wang@sydney.edu.au
 
 ADD install.R /home/
-ADD zip_file /home/rstudio
+
+RUN wget http://shiny.maths.usyd.edu.au/singlecellplus/SingleCellPlus_zip.zip -P /home/rstudio/
+RUN cd /home/rstudio/ && unzip SingleCellPlus_zip.zip
+RUN cp -r /home/rstudio/SingleCellPlus_zip/* /home/rstudio/
+RUN rm -rf /home/rstudio/SingleCellPlus_zip.zip
+RUN rm -rf /home/rstudio/SingleCellPlus_zip
+RUN ls /home/rstudio/
 
 RUN R -f /home/install.R
