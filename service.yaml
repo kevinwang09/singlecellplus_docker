@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: scp-service
+spec:
+  selector:
+    app: scpApp
+  ports:
+  - name: jean 
+    protocol: TCP
+    port: 80
+    targetPort: 8000
+  - name: kevin 
+    protocol: TCP
+    port: 81
+    targetPort: 8001

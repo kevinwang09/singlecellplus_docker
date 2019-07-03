@@ -1,0 +1,24 @@
+## Locally
+docker ps
+docker container ls --all
+docker images ls --all
+docker run -d -p 8787:8787 -e PASSWORD=pushu kevinwang09/singlecellplus_docker
+
+
+## Upload to GCR
+cd ~/Dropbox/KevinWang/docker/singlecellplus_docker
+gcloud builds submit --timeout=60m -t gcr.io/scmerge/singlecellplus_docker .
+gcloud container clusters create scp-cluster --num-nodes=2
+
+## Deployment
+
+kubectl run -it --image=gcr.io/scmerge/singlecellplus_docker --env="PASSWORD=pushu" scp
+
+kubectl port-forward scp-dffcc88cc-l4trz 8787:8787 
+
+kubectl expose deployment scp --type=LoadBalancer --port 80 --target-port 8787
+
+kubectl scale deployment scp --replicas=3
+
+kubectl get service
+
