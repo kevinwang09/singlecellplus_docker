@@ -7,7 +7,7 @@ docker run -d -p 8787:8787 -e PASSWORD=pushu kevinwang09/singlecellplus_docker
 
 ## Upload to GCR
 cd ~/Dropbox/KevinWang/docker/singlecellplus_docker
-gcloud builds submit --timeout=60m -t gcr.io/scmerge/singlecellplus_docker .
+gcloud builds submit --timeout=180m -t gcr.io/scmerge/singlecellplus_docker .
 gcloud container clusters create scp-cluster --num-nodes=2
 
 ## Deployment
