@@ -1,7 +1,7 @@
 library(googleComputeEngineR)
 project = "scmerge"
-# zone = "us-east1-b"
 zone = "australia-southeast1-a"
+# zone = "asia-east2-a" ## Hong Kong server
 
 gce_global_project(project)
 gce_global_zone(zone)
@@ -12,20 +12,42 @@ gce_global_zone(zone)
 (tag = gce_tag_container("singlecellplus_docker"))
 
 vm <- gce_vm(template = "rstudio", 
-             name = "scp-name", 
-             predefined_type = "n1-highmem-16",
+             name = "singlecellplus1", 
+             predefined_type = "n1-standard-16",
              dynamic_image = tag,
              user = "rstudio", 
              password = "pushu")
 
-# bash: gcloud compute ssh scp-name
+# bash: gcloud compute ssh singlecellplus1
 vm <- gce_ssh_setup(vm,
-                    username = "rstudio", 
+                    username = "rstudio",
                     key.pub = "~/.ssh/id_rsa.pub",
                     key.private = "~/.ssh/id_rsa")
 # gce_ssh(vm, "echo foo", username = "rstudio")
-gce_rstudio_adduser(instance = vm, username = "jean", password = "jean")
-gce_rstudio_adduser(instance = vm, username = "kevin", password = "kevin")
-gce_rstudio_adduser(instance = vm, username = "pushu", password = "pushu")
 
-gce_vm_stop(instances = vm)
+names = readr::read_csv("names.csv")
+userGroups = split(names$Username, f = rep(1:2, length.out = nrow(names)))
+
+purrr::map(.x = userGroups$`1`, 
+           .f = ~ gce_rstudio_adduser(instance = vm, username = .x, password = .x))
+
+# gce_rstudio_adduser(instance = vm, username = "kevin", password = "kevin")
+
+# gce_vm_stop(instances = vm)
+################################################################################################
+zone = "asia-northeast1-a" ## Tokyo server
+gce_global_project(project)
+gce_global_zone(zone)
+vm2 <- gce_vm(template = "rstudio", 
+             name = "singlecellplus2", 
+             predefined_type = "n1-highmem-16",
+             dynamic_image = tag,
+             user = "rstudio", 
+             password = "pushu")
+vm2 <- gce_ssh_setup(vm2,
+                    username = "rstudio",
+                    key.pub = "~/.ssh/id_rsa.pub",
+                    key.private = "~/.ssh/id_rsa")
+
+purrr::map(.x = userGroups$`2`, 
+           .f = ~ gce_rstudio_adduser(instance = vm2, username = .x, password = .x))
