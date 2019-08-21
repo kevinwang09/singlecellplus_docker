@@ -27,7 +27,10 @@ vm <- gce_ssh_setup(vm,
 
 ##################################################
 
-# names = readr::read_csv("names.csv")
+names = readr::read_csv("names.csv")
+purrr::map(.x = names$Username,
+           .f = ~ gce_rstudio_adduser(instance = vm, username = .x, password = .x))
+
 # userGroups = split(names$Username, f = rep(1:2, length.out = nrow(names)))
 # 
 # purrr::map(.x = userGroups$`1`, 

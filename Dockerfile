@@ -15,6 +15,11 @@ RUN cd /home/rstudio/ && unzip SingleCellPlus_zip.zip
 RUN cp -r /home/rstudio/SingleCellPlus_zip/* /home/rstudio/
 RUN rm -rf /home/rstudio/SingleCellPlus_zip.zip
 RUN rm -rf /home/rstudio/SingleCellPlus_zip
+RUN git clone https://github.com/SydneyBioX/SingleCellPlus
+RUN cp ./SingleCellPlus/qc.Rmd /home/rstudio/
+RUN cp ./SingleCellPlus/scMerge.Rmd /home/rstudio/
+RUN cp ./SingleCellPlus/downstream.Rmd /home/rstudio/
+RUN rm -rf /home/rstudio/SingleCellPlus
 RUN ls /home/rstudio/
 
 RUN R -f /home/install.R
