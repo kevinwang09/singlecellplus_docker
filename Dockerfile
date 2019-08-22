@@ -25,5 +25,4 @@ RUN ls /home/rstudio/
 
 RUN R -f /home/install.R
 ADD test.R /home/rstudio
-RUN cd /home/rstudio/
-RUN R -f /home/rstudio/test.R
+RUN ls /home/rstudio/

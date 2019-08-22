@@ -1,7 +1,7 @@
 start = Sys.time()
-source("qc.R")
-source("scMerge.R")
-source("downstream.R")
+source("/home/studio/qc.R")
+source("/home/studio/scMerge.R")
+source("/home/studio/downstream.R")
 end = Sys.time()
 
 print(start - end)
