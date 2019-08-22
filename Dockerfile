@@ -11,12 +11,9 @@ MAINTAINER kevin.wang@sydney.edu.au
 ADD install.R /home/
 
 
-RUN wget https://storage.googleapis.com/scp_data/SingleCellPlus_data.zip -P /home/rstudio/
-RUN cd /home/rstudio/ && unzip SingleCellPlus_data.zip
-RUN mkdir /home/rstudio/data
-RUN cp -r /home/rstudio/SingleCellPlus_data/* /home/rstudio/data
-RUN rm -rf /home/rstudio/SingleCellPlus_data.zip
-RUN rm -rf /home/rstudio/SingleCellPlus_data
+RUN wget https://storage.googleapis.com/scp_data/data.zip -P /home/rstudio/
+RUN cd /home/rstudio/ && unzip data.zip
+RUN rm -rf /home/rstudio/data.zip
 RUN git clone https://github.com/SydneyBioX/SingleCellPlus
 RUN cp ./SingleCellPlus/qc.Rmd /home/rstudio/
 RUN cp ./SingleCellPlus/scMerge.Rmd /home/rstudio/
