@@ -10,6 +10,7 @@ MAINTAINER kevin.wang@sydney.edu.au
 
 ADD install.R /home/
 
+
 RUN wget http://shiny.maths.usyd.edu.au/singlecellplus/SingleCellPlus_zip.zip -P /home/rstudio/
 RUN cd /home/rstudio/ && unzip SingleCellPlus_zip.zip
 RUN cp -r /home/rstudio/SingleCellPlus_zip/* /home/rstudio/
@@ -23,3 +24,6 @@ RUN rm -rf /home/rstudio/SingleCellPlus
 RUN ls /home/rstudio/
 
 RUN R -f /home/install.R
+ADD test.R /home/rstudio
+RUN cd /home/rstudio/
+RUN R -f /home/rstudio/test.R
