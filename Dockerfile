@@ -11,11 +11,12 @@ MAINTAINER kevin.wang@sydney.edu.au
 ADD install.R /home/
 
 
-RUN wget http://shiny.maths.usyd.edu.au/singlecellplus/SingleCellPlus_zip.zip -P /home/rstudio/
-RUN cd /home/rstudio/ && unzip SingleCellPlus_zip.zip
-RUN cp -r /home/rstudio/SingleCellPlus_zip/* /home/rstudio/
-RUN rm -rf /home/rstudio/SingleCellPlus_zip.zip
-RUN rm -rf /home/rstudio/SingleCellPlus_zip
+RUN wget https://storage.googleapis.com/scp_data/SingleCellPlus_data.zip -P /home/rstudio/
+RUN cd /home/rstudio/ && unzip SingleCellPlus_data.zip
+RUN mkdir /home/rstudio/data
+RUN cp -r /home/rstudio/SingleCellPlus_data/* /home/rstudio/data
+RUN rm -rf /home/rstudio/SingleCellPlus_data.zip
+RUN rm -rf /home/rstudio/SingleCellPlus_data
 RUN git clone https://github.com/SydneyBioX/SingleCellPlus
 RUN cp ./SingleCellPlus/qc.Rmd /home/rstudio/
 RUN cp ./SingleCellPlus/scMerge.Rmd /home/rstudio/
@@ -23,6 +24,6 @@ RUN cp ./SingleCellPlus/downstream.Rmd /home/rstudio/
 RUN rm -rf /home/rstudio/SingleCellPlus
 RUN ls /home/rstudio/
 
-RUN R -f /home/install.R
-ADD test.R /home/rstudio
-RUN ls /home/rstudio/
+# RUN R -f /home/install.R
+# ADD test.R /home/rstudio
+# RUN ls /home/rstudio/
