@@ -20,7 +20,7 @@ RUN cp ./SingleCellPlus/scMerge.Rmd /home/rstudio/
 RUN cp ./SingleCellPlus/downstream.Rmd /home/rstudio/
 RUN rm -rf /home/rstudio/SingleCellPlus
 RUN ls /home/rstudio/
-
+#
 
 # RUN R -f /home/install.R
 # ADD test.R /home/rstudio
